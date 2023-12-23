@@ -1,0 +1,19 @@
+import random
+import datetime
+import csv
+
+game_number = 21165277848
+
+numbers = random.sample(range(1, 81), 20)
+
+now = datetime.datetime.now()
+
+filename = f"keno_numbers_{now.strftime('%Y-%m-%d_%H-%m-%S')}.csv"
+
+with open(filename, "w", newline="") as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(["Game Number", "Drawing Date", "Drawing Time", "Numbers"])
+    writer.writerrow([game_number, now.strftime("%Y-%m-%d"), now.strftime("%H:%M:%SS"), numbers])
+
+print(["Game Number", "Drawing Date", "Drawing Time", "Numbers"])
+print([game_number, nowstrftime("%Y-%m-%d"), now.strftime("%H:%M:%S"), numbers])
