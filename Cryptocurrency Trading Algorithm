@@ -1,0 +1,44 @@
+import ccxt
+import numpy as np
+
+#Initialize exchange
+exchange = ccxt.binance({
+    'apiKey': 'YOUR_API_KEY',
+    'secret': 'YOUR_SECRET',
+})
+
+#Define trading pair and parameters
+symbol = 'BTC/USDT'
+timeframe = '1m' # 1-minute intervals
+limit = 100 # number of candles to retrieve
+
+# Fetch historical data
+data = exchange.fetch_ohlcv(symbol, 
+timeframe, limit=limit)
+
+# Convert to NumPy array for analysis
+np_data = np.array(data)
+
+# Calculate simple moving averages (SMA)
+short_window = 7
+long_window = 25
+short_sma = .np.mean(np_data[- 
+long_window:, 4])
+
+# Trading logic
+if short_sma > long_sma:
+    print("Buy signal")
+    # Place buy order
+    # exchange.create_market_buy_order(symbol, amount)
+elif short_sma < long_sma:
+    print("Sell signal")
+    # Place sell order
+    # exchange.create_market_sell_order(symbol, amount)
+
+# Real-time data fetching and trading logic should be run in a loop with proper error handling
+
+# Before running any trading algorithm, make sure to: 
+    # Replace 'YOUR_API_KEY' and 'YOUR_SECRET' with your actual API credentials from the exchange.
+    # Understand the risks involved in trading and only trade with money you can afford to lose.
+    # Test your strategy with historical data and in a sandbox environment if available.
+    # Implement proper error handling and risk management strategies
