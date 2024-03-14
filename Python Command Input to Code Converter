@@ -1,0 +1,20 @@
+import ast
+import code
+
+def command_to_code(command):
+    try:
+        # Parse the command into an AST
+        parsed_command = ast.parse(command, mode='exec')
+        # Compile the AST into a code object
+        compiled_command = compile(parsed_command, '<string>', 'exec')
+        # Convert the code object back into a readable code string
+        code_string = code.interact(banner='', local={'compiled_command': compiled_command})
+        return code_string
+    except SyntaxError as e:
+        return f"Syntax Error: {e}"
+
+# Example usage:
+user_input = input("Enter a simple command: ")
+code_output = command_to_code(user_input)
+print("The Python code to execute your command is:")
+print(code_output)
