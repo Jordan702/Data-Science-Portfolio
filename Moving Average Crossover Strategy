@@ -1,0 +1,34 @@
+import yfinance a yf
+
+#Download historical data for required stocks
+ticker = "AAPL"
+data = yf.download(ticker, start="2020-01-01", end="2020-12-31")
+
+#Calculate the 20 and 50 days moving averages of the closing prices
+data['20_day_MA'] = 
+data['Close'].rolling(window=20).mean()
+data['50_day_MA'] =
+data['Close'].rolling(window=50).mean()
+
+#Create a 'signal' (invested or not invested) when the short moving average crosses the long moving average, but only for the period greater than the shortest moving average window
+data['Signal'] = 0
+data['Signal'][20:] = 
+np.where(data['20_day_MA'][20:] > 
+data['50_day_MA'][20:], 1, 0)
+
+#Calculate the daily returns
+data['Daily_Return'] = 
+data['Close'].pct_change()
+
+#Calculate the strategy returns
+data['Strategy_Return'] = 
+data['Daily_Return'] * 
+data['Signal'].shift(1)
+
+#Calculate cumlative returns
+data['Cumlative_Strategy_Return'] = 
+(data['Strategy_Return'] + 
+1).cumprod()
+
+data[['Cumulative_Strategy_Return', 
+'Close']].plot()
